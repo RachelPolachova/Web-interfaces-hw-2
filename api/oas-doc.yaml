@@ -1,0 +1,567 @@
+openapi: 3.0.0
+info:
+  title: Grading System API
+  version: '1.0'
+  description: web-interfaces-homework-2
+  contact:
+    url: 'https://stoplight.io'
+    name: Stoplight
+  license:
+    name: MIT
+paths:
+  /students:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    adress:
+                      type: string
+                    class:
+                      type: string
+                    id:
+                      type: number
+              examples:
+                response:
+                  value:
+                    - name: Dolores Habbitat
+                      adress: 5th Parkinson
+                      class: ARI
+                      id: 1
+                    - name: Jeff Jefferson
+                      adress: Street numero uno
+                      class: EI
+                      id: 2
+                    - name: Jeff Hakunamatata
+                      adress: Wonderland
+                      class: MK
+                      id: 3
+                    - name: Alice Wonderland
+                      adress: Oulu
+                      class: ARI
+                      id: 4
+      summary: get all students
+      operationId: getStudents
+      description: Get all students
+      tags:
+        - students
+    post:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    adress:
+                      type: string
+                    class:
+                      type: string
+                    id:
+                      type: number
+      summary: post one student or more students
+      operationId: postStudents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  adress:
+                    type: string
+                  class:
+                    type: string
+                  id:
+                    oneOf:
+                      - type: string
+                      - type: number
+        x-examples:
+          application/json:
+            - name: Luke Skywalker
+              adress: Tatooine
+              class: Jedi
+              id: 1
+            - name: Geralt of Rivia
+              adress: Kaer Morhen
+              class: Witcher
+              id: 2
+            - name: Cirilla Fiona Elen Riannon
+              adress: Cintra
+              class: Witcher
+              id: 3
+      description: post one or more students
+      tags:
+        - students
+  '/students/{studentId}':
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  adress:
+                    type: string
+                  class:
+                    type: string
+                  id:
+                    type: number
+              examples:
+                response:
+                  value:
+                    name: Alice Wonderland
+                    adress: Oulu
+                    class: ARI
+                    id: 4
+      summary: get student by ID
+      operationId: getStudentId
+      parameters:
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: number
+      description: get student by id
+      tags:
+        - students
+    parameters:
+      - name: studentId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: delete student by id
+      operationId: deleteStudentId
+      parameters:
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: number
+      description: delete student by id
+      tags:
+        - students
+    put:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  adress:
+                    type: string
+                  class:
+                    type: string
+                  id:
+                    oneOf:
+                      - type: string
+                      - type: number
+      summary: update student by id
+      operationId: updateStudentId
+      parameters:
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                adress:
+                  type: string
+                class:
+                  type: string
+        x-examples:
+          application/json:
+            name: George Orwell
+            adress: England
+            class: Writer
+      description: update student by id
+      tags:
+        - students
+  /courses:
+    get:
+      responses:
+        '200':
+          description: this is response body description
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    id:
+                      type: number
+              examples:
+                response:
+                  value:
+                    - name: ARI
+                      description: Automatization and IT
+                      id: 1
+                    - name: EI
+                      description: Economic informatic
+                      id: 2
+                    - name: Jedi
+                      description: May the force be with you.
+                      id: 3
+      summary: get all courses
+      operationId: getCourses
+      description: get all courses
+      tags:
+        - students
+    post:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    id:
+                      oneOf:
+                        - type: string
+                        - type: number
+      summary: post one or more courses
+      operationId: postCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCourse'
+        x-examples:
+          application/json:
+            - name: Medicine
+              description: Pills
+              id: 1
+            - name: Economic
+              description: Derivations and so on
+              id: 2
+            - name: Marketing
+              description: Everything is about marketing.
+              id: 3
+      description: post one or more courses
+      tags:
+        - courses
+  '/courses/{courseId}':
+    get:
+      responses:
+        '200':
+          description: response desc
+          headers:
+            new1548332783539:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: number
+              examples:
+                response:
+                  value:
+                    name: Feeding horses
+                    description: Types of carrots
+                    id: 1
+      summary: get course by id
+      operationId: getCourseId
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: string
+      tags:
+        - courses
+    parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: delete course by id
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: number
+      tags:
+        - courses
+      operationId: deleteCourseId
+    put:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: update course by id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+        x-examples:
+          application/json:
+            name: Witcher
+            description: No more monsters.
+      operationId: updateCourseId
+      description: update course by id
+      tags:
+        - courses
+  /grades:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    courseId:
+                      type: number
+                    students:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          studentId:
+                            type: number
+                          grade:
+                            type: number
+              examples:
+                response:
+                  value:
+                    - courseId: 1
+                      students:
+                        - studentId: 1
+                          grade: 3
+                        - studentId: 2
+                          grade: 4
+                        - studentId: 3
+                          grade: 1
+      summary: get all grades
+      operationId: getGrades
+      description: get all grades
+      tags:
+        - grades
+    post:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: post one or more new course with grades
+      operationId: postGrades
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  courseId:
+                    type: number
+                  students:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        studentId:
+                          type: number
+                        grade:
+                          type: number
+        x-examples:
+          application/json:
+            - courseId: 4
+              students:
+                - studentId: 3
+                  grade: 2
+                - studentId: 5
+                  grade: 1
+                - studentId: 8
+                  grade: 4
+                - studentId: 9
+                  grade: 1
+                - studentId: 14
+                  grade: 5
+            - courseId: 9
+              students:
+                - studentId: 8
+                  grade: 1
+      description: post one or more new course with grades
+      tags:
+        - grades
+  '/grades/{courseId}/{studentId}':
+    delete:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: delete student from course
+      operationId: deleteStudenFromCoursetId
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: number
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: number
+      description: delete student from course
+      tags:
+        - grades
+    parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: studentId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: get student from course
+      operationId: getStudenfromCoursetId
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: number
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: number
+      description: get student from course
+      tags:
+        - grades
+tags:
+  - name: students
+  - name: courses
+  - name: grades
+servers:
+  - url: 'http://gradingsystem.stoplight.io'
+
+components:
+  schemas:
+    NewCourse:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          id:
+            type: number
+
+#            type: array
+#              items:
+#                type: object
+#                properties:
+#                  name:
+#                    type: string
+#                  description:
+#                    type: string
+#                  id:
+#                    type: number
