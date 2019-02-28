@@ -20,9 +20,15 @@ var oasDoc = jsyaml.safeLoad(spec);
 var options_object = {
   controllers: path.join(__dirname, './controllers'),
   loglevel: 'info',
-  strict: true,
+  strict: false,
   router: true,
-  validator: true
+  validator: true,
+	docs: {
+  	    apiDocs: null,
+		apiDocsPrefix: null,
+		swaggerUi: null,
+		swaggerUiPrefix: null
+	}
 };
 
 oasTools.configure(options_object);

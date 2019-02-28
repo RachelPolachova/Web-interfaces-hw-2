@@ -26,8 +26,6 @@ module.exports.getCourses = function getCourses(req, res, next) {
 
 module.exports.postCourse = function postCourse(req, res, next) {
 
-	// courses.push(req.body)
-
 	res.send({
     message: req.body
   });

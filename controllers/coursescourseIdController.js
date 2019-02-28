@@ -1,5 +1,23 @@
 'use strict'
 
+const courses = [
+	{
+		"name": "ARI",
+		"description": "Automatization and IT",
+		"id": 1
+	},
+	{
+		"name": "EI",
+		"description": "Economic informatic",
+		"id": 2
+	},
+	{
+		"name": "Jedi",
+		"description": "May the force be with you.",
+		"id": 3
+	}
+]
+
 var varcoursescourseIdController = require('./coursescourseIdControllerService');
 
 module.exports.getCourseId = function getCourseId(req, res, next) {
